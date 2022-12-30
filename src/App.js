@@ -10,11 +10,7 @@ function App() {
       <h1></h1>
 
       <Sidebar />
-
-      {/* FEED */}
       <Feed />
-
-      {/* WIDGETS */}
       <Widgets />
     </div>
   );

@@ -1,5 +1,6 @@
 import React from "react";
 import "../Feed.css";
+import Post from "./Post";
 import TweetBox from "./TweetBox";
 
 export default function Feed() {
@@ -9,14 +10,18 @@ export default function Feed() {
       <div className="feed__header">
         <h2>Home</h2>
       </div>
-      {/* TWEETBOX */}
       <TweetBox />
 
-      {/* POST */}
-      {/* POST */}
-      {/* POST */}
-      {/* POST */}
-      {/* POST */}
+      <Post
+        displayName="Sam Gable"
+        username="fullthrottledvb"
+        verified={true}
+      />
+      <Post />
+      <Post />
+      <Post />
+      <Post />
+      <Post />
     </div>
   );
 }
