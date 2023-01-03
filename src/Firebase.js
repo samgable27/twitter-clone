@@ -1,9 +1,7 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import firebase from "firebase/compat/app";
+import "firebase/compat/firestore";
+import "firebase/compat/auth";
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyDBudKdGdmDjoU6g87MFMBAgilPJqGGX8g",
   authDomain: "twitter-clone-8f968.firebaseapp.com",
@@ -13,10 +11,8 @@ const firebaseConfig = {
   appId: "1:637149594904:web:80b260ecef1978c25e4a6d",
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const firebaseApp = firebase.initializeApp(firebaseConfig);
 
-const db = firebaseConfig.firestore();
+const db = firebaseApp.firestore();
 
 export default db;
-

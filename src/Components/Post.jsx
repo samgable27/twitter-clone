@@ -7,40 +7,28 @@ import RepeatIcon from "@mui/icons-material/Repeat";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import PublishIcon from "@mui/icons-material/Publish";
 
-export default function Post({
-  displayName,
-  userName,
-  verified,
-  text,
-  image,
-  avatar,
-}) {
+export default function Post({ displayName, userName, verified, text, image }) {
   return (
     <div className="post">
       <div className="post__avatar">
-        <Avatar src="{}" />
+        <Avatar src="{avatar}" />
       </div>
       <div className="post__body">
         <div className="post__header">
           <div className="post__headerText">
             <h3>
-              Sam Gable{" "}
+              {displayName}{" "}
               <span className="post__headerSpecial">
-                <VerifiedIcon className="post__badge" /> @sam_gable
+                {verified && <VerifiedIcon className="post__badge" />} @
+                {userName}
               </span>
             </h3>
           </div>
           <div className="post__headerDescription">
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Obcaecati, quibusdam!
-            </p>
+            <p>{text}</p>
           </div>
         </div>
-        <img
-          src="https://media3.giphy.com/media/65ATdpi3clAdjomZ39/giphy.gif"
-          alt=""
-        />
+        <img src={image} alt="" />
         <div className="post__footer">
           <ChatBubbleOutline fontSize="small" />
           <RepeatIcon fontSize="small" />
