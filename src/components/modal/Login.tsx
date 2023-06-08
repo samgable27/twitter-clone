@@ -41,8 +41,8 @@ const Login: React.FC<LoginModalProps> = () => {
             <button className="bg-white text-black w-full font-bold text-lg p-2 mt-8 rounded-md">
               Log In
             </button>
-            <h1 className="text-center mt-8 font-bold text-lg">or</h1>
-            <button className="bg-white text-black w-full font-bold text-lg p-2 rounded-md mt-8">
+            <h1 className="text-center mt-4 font-bold text-lg">or</h1>
+            <button className="bg-white text-black w-full font-bold text-lg p-2 rounded-md mt-4">
               Log In as Guest
             </button>
           </div>
