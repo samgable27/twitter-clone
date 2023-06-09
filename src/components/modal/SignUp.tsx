@@ -5,6 +5,7 @@ import { closeSignUpModal, openSignUpModal } from "redux/modalSlice";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
+  signInWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../../../firebase";
@@ -37,6 +38,10 @@ const SignUp: React.FC<SignUpModalProps> = () => {
     });
 
     router.reload();
+  };
+
+  const handleGuestLogin = async () => {
+    await signInWithEmailAndPassword(auth, "guest168944@gmail.com", "123456");
   };
 
   // listener for auth state change, returns current user
@@ -73,7 +78,10 @@ const SignUp: React.FC<SignUpModalProps> = () => {
       >
         <div className="flex justify-center w-[90%] h-[600px] border border-gray-700 rounded-lg bg-black text-white  md:w-[560px] md:h-[600px]">
           <div className="w-[90%] mt-8 flex flex-col">
-            <button className="bg-white text-black w-full font-bold text-lg p-2 rounded-md">
+            <button
+              onClick={handleGuestLogin}
+              className="bg-white text-black w-full font-bold text-lg p-2 rounded-md"
+            >
               Sign In as Guest
             </button>
             <h1 className="text-center mt-4 font-bold text-lg">or</h1>
