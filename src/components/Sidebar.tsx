@@ -16,6 +16,7 @@ import { signOut } from "firebase/auth";
 import { auth } from "../../firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { signOutUser } from "redux/userSlice";
+import { closeLoginModal, closeSignUpModal } from "redux/modalSlice";
 
 interface SidebarProps {
   text?: string;
@@ -31,6 +32,8 @@ const Sidebar: React.FC<SidebarProps> = () => {
   const handleSignOut = async () => {
     await signOut(auth);
     dispatch(signOutUser());
+    dispatch(closeSignUpModal());
+    dispatch(closeLoginModal());
   };
 
   return (
