@@ -1,13 +1,62 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal } from "@mui/material/";
 import { useDispatch, useSelector } from "react-redux";
 import { closeSignUpModal, openSignUpModal } from "redux/modalSlice";
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  updateProfile,
+} from "firebase/auth";
+import { auth } from "../../../firebase";
+import { setUser } from "redux/userSlice";
+import { useRouter } from "next/router";
 
 interface SignUpModalProps {}
 
 const SignUp: React.FC<SignUpModalProps> = () => {
   const isOpen = useSelector((state: any) => state?.modals?.signUpModalOpen);
   const dispatch = useDispatch();
+  const router = useRouter();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+
+  const handleSignUp = async () => {
+    const userCredentials = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+
+    await updateProfile(userCredentials.user, {
+      displayName: name,
+      photoURL: `./assets/profilePictures/pfp${Math.ceil(
+        Math.random() * 6
+      )}.png`,
+    });
+
+    router.reload();
+  };
+
+  // listener for auth state change, returns current user
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (userCurr) => {
+      if (!userCurr || !userCurr.email) return;
+
+      // handle redux actions
+      dispatch(
+        setUser({
+          username: userCurr.email.split("@")[0],
+          name: userCurr?.displayName,
+          email: userCurr.email,
+          uid: userCurr.uid,
+          photoUrl: userCurr?.photoURL,
+        })
+      );
+    });
+    return unsubscribe;
+  }, []);
 
   return (
     <>
@@ -35,18 +84,24 @@ const SignUp: React.FC<SignUpModalProps> = () => {
               className="h-10 mt-8 rounded-md bg-transparent border border-gray-700 p-6"
               placeholder="Full Name"
               type={"text"}
+              onChange={(e) => setName(e.target.value)}
             />
             <input
               className="h-10 mt-8 rounded-md bg-transparent border border-gray-700 p-6"
               placeholder="Email"
               type={"email"}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <input
               className="h-10 mt-8 rounded-md bg-transparent border border-gray-700 p-6"
               placeholder="Password"
               type={"password"}
+              onChange={(e) => setPassword(e.target.value)}
             />
-            <button className="bg-white text-black w-full font-bold text-lg p-2 mt-8 rounded-md">
+            <button
+              onClick={handleSignUp}
+              className="bg-white text-black w-full font-bold text-lg p-2 mt-8 rounded-md"
+            >
               Create Account
             </button>
           </div>

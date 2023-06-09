@@ -9,8 +9,13 @@ import {
   BellIcon,
   UserIcon,
   DotsCircleHorizontalIcon,
+  DotsHorizontalIcon,
 } from "@heroicons/react/outline";
 import Image from "next/image";
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebase";
+import { useDispatch, useSelector } from "react-redux";
+import { signOutUser } from "redux/userSlice";
 
 interface SidebarProps {
   text?: string;
@@ -20,6 +25,14 @@ interface SidebarProps {
 type IconComponentType = (props: SVGProps<SVGSVGElement>) => JSX.Element;
 
 const Sidebar: React.FC<SidebarProps> = () => {
+  const dispatch = useDispatch();
+  const user = useSelector((state: any) => state?.user);
+
+  const handleSignOut = async () => {
+    await signOut(auth);
+    dispatch(signOutUser());
+  };
+
   return (
     <div className="h-full hidden sm:flex flex-col fixed xl:ml-24">
       <nav className="relative xl:space-y-1.5">
@@ -41,7 +54,20 @@ const Sidebar: React.FC<SidebarProps> = () => {
           Tweet
         </button>
       </nav>
-      <div className="absolute bottom-0">User</div>
+      <div
+        onClick={handleSignOut}
+        className="hover:bg-white hover:bg-opacity-10 transition duration-150 ease-in-out cursor-pointer xl:p-3 rounded-full flex items-center justify-center space-x-3 absolute bottom-0"
+      >
+        <img
+          className="w-10 h-10 rounded-full object-cover"
+          src={user?.photoUrl || "/assets/kylie.png"}
+        />
+        <div className="hidden xl:inline">
+          <h1 className="font-bold whitespace-nowrap">{user?.name}</h1>
+          <h1 className="text-gray-500">@{user?.username}</h1>
+        </div>
+        <DotsHorizontalIcon className="h-5 hidden xl:inline" />
+      </div>
     </div>
   );
 };
