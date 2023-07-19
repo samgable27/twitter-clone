@@ -7,8 +7,11 @@ import {
 } from "@heroicons/react/outline";
 import React from "react";
 import Moment from "react-moment";
+import { useDispatch } from "react-redux";
+import { openCommentModal } from "../../redux/modalSlice";
 
 const Tweet = ({ data }) => {
+  const dispatch = useDispatch();
   return (
     <div className="border-b border-gray-700">
       <TweetHeader
@@ -19,7 +22,9 @@ const Tweet = ({ data }) => {
         photoUrl={data?.photoUrl}
       />
       <div className="p-3 ml-16 text-gray-500 flex space-x-14">
-        <ChatIcon className="w-5 cursor-pointer hover:text-pink-500" />
+        <div onClick={() => dispatch(openCommentModal())}>
+          <ChatIcon className="w-5 cursor-pointer hover:text-pink-500" />
+        </div>
         <HeartIcon className="w-5 cursor-pointer hover:text-pink-500" />
         <ChartBarIcon className="w-5 cursor-not-allowed" />
         <UploadIcon className="w-5 cursor-not-allowed" />

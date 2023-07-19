@@ -3,6 +3,7 @@ import PostsFeed from "@/components/PostsFeed";
 import Sidebar from "@/components/Sidebar";
 import Trending from "@/components/Trending";
 import TweetInput from "@/components/TweetInput";
+import CommentModal from "../components/modal/CommentModal";
 import { Inter } from "@next/font/google";
 import { SVGProps } from "react";
 import { useSelector } from "react-redux";
@@ -25,6 +26,7 @@ export default function Home() {
         <PostsFeed />
         <Trending />
       </div>
+      <CommentModal />
       {!userName && <Banner />}
     </div>
   );
