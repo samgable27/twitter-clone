@@ -1,19 +1,21 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAD4AKn382Umany8DJ4ZHug9bWvF6m0w5g",
-  authDomain: "twitter-clone-75c3d.firebaseapp.com",
-  projectId: "twitter-clone-75c3d",
-  storageBucket: "twitter-clone-75c3d.appspot.com",
-  messagingSenderId: "553531880861",
-  appId: "1:553531880861:web:60f7495da722dbeaf46b74",
-  measurementId: "G-7D4WT86CSS",
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
+const storage = getStorage();
 
-export { auth, db };
+export { auth, db, storage };
