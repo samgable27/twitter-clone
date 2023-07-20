@@ -15,7 +15,7 @@ const Banner: React.FC<BannerProps> = () => {
       </div>
 
       <div className="space-x-3">
-        <Login />
+        <Login email={null} password={null} />
         <SignUp />
       </div>
     </div>
